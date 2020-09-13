@@ -15,19 +15,22 @@
 
 
 /**
-* @brief Enum describing the state of process
-* SHELL will exactly one process for each command. Which can be in 
-* process can be in either of four states (STOPPED, RUNNING, TERMINATED, KILLED).
+* @brief Enum Describing the state of each active or uncleaned process. 
+* SHELL will spawn exactly one process for each command where each process 
+* can be in either of four states (STOPPED, RUNNING, TERMINATED, KILLED).
 */
+
 typedef enum _process_state
 {
-    /*
-    * Process will go to stopped states when it recives either (SIGSTOP or SIGTSTP) signal.
-    * Usually when we do CTRL+Z shell sends SIGTSTP signal itself and all of its children.
+   /**
+    * When process stopped and in background.
+    * A process may stop upon receiving either of the signal SIGSTOP or SIGTSTP.
+    * As it happens when the user presses CTRL+Z, The SHELL sends the SIGTSTP to current 
+    * foreground process and process goes to stopped state and move to background.
     */
     XSSH_PROC_STATE_STOPPED,
 
-    /*When process is running either in foregorunf or background*/  
+    /*When process is currently running. It may be in foreground and background*/  
     XSSH_PROC_STATE_RUNNING, 
 
     /*When process has exited*/ 
@@ -65,8 +68,6 @@ char* state_str[] =
     "DONE",
     "KILLED",
 };
-
-
 
 /**
 * @brief  Struct is being used to store information regarding input/output rediection within a process.
